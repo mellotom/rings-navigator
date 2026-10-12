@@ -44,6 +44,12 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--c1A1F18);outline-of
 .mr{display:grid;grid-template-columns:72px minmax(0,1fr);column-gap:8px;line-height:1.32}
 .mk{font-family:'Roboto Mono',monospace;font-size:10.5px;color:var(--c6C7566)}
 .ma{font-family:'Archivo',sans-serif;font-size:12px;color:var(--c414A3E)}
+.ch{display:flex;justify-content:space-between;align-items:baseline;gap:8px;padding:6px 0 3px;border-bottom:1px solid var(--cDFE5D5)}
+.ch b{font-family:'Archivo',sans-serif;font-weight:800;font-size:14px;color:var(--c1A1F18);letter-spacing:-.01em}
+.ch span{font-family:'Roboto Mono',monospace;font-size:10px;color:var(--c6C7566);text-align:right}
+.cs{display:grid;grid-template-columns:18px minmax(0,1fr);column-gap:8px;padding:3px 0;font-family:'Archivo',sans-serif;font-size:12px;line-height:1.32;color:var(--c414A3E)}
+.cn{font-family:'Roboto Mono',monospace;font-weight:700;font-size:10px;color:var(--cF6F8F1);background:var(--c6C7566);text-align:center;height:14px;line-height:14px;margin-top:1px}
+.cf{font-family:'Roboto Mono',monospace;font-size:10px;line-height:1.45;color:var(--c6C7566);padding:2px 0 4px 26px}
 .note{font-family:'Roboto Mono',monospace;font-size:10.5px;line-height:1.5;color:var(--c6C7566);margin:4px 0 0}
 
 </style>
@@ -159,7 +165,7 @@ html,body{margin:0;background:var(--cF6F8F1)}
 <div class="r"><div class="kc"><span class="v">poly LED</span></div><div class="a"><svg width="11" height="11" viewBox="0 0 12 12" aria-hidden="true" style="display: inline-block; vertical-align: -1px"><circle cx="6" cy="6" r="5" stroke="none" style="fill:var(--c4F8A3A)"></circle></svg> 1 voice · <svg width="11" height="11" viewBox="0 0 12 12" aria-hidden="true" style="display: inline-block; vertical-align: -1px"><circle cx="6" cy="6" r="5" fill="#E8A93A" stroke="none"></circle></svg> 2 · <svg width="11" height="11" viewBox="0 0 12 12" aria-hidden="true" style="display: inline-block; vertical-align: -1px"><circle cx="6" cy="6" r="5" fill="#C8382E" stroke="none"></circle></svg> 4 · red + pulsing green = 3</div></div>
 <div class="r"><div class="kc"><span class="v">model LED</span></div><div class="a"><svg width="11" height="11" viewBox="0 0 12 12" aria-hidden="true" style="display: inline-block; vertical-align: -1px"><circle cx="6" cy="6" r="5" stroke="none" style="fill:var(--c4F8A3A)"></circle></svg> modal · <svg width="11" height="11" viewBox="0 0 12 12" aria-hidden="true" style="display: inline-block; vertical-align: -1px"><circle cx="6" cy="6" r="5" fill="#E8A93A" stroke="none"></circle></svg> sympathetic · <svg width="11" height="11" viewBox="0 0 12 12" aria-hidden="true" style="display: inline-block; vertical-align: -1px"><circle cx="6" cy="6" r="5" fill="#C8382E" stroke="none"></circle></svg> string · pulsing = hidden twin</div></div>
 <div class="r"><div class="kc"><span class="v">calibrating</span></div><div class="a">LED 1 orange (send 1 v) › LED 2 orange (send 3 v) · both red = failed</div></div>
-<div class="r"><div class="kc"><span class="v">firmware update</span></div><div class="a">both orange at boot · LED 1 green = receiving · LED 2 = level, green or yellow is good · both orange = writing · alternating red = too quiet</div></div>
+<div class="r"><div class="kc"><span class="v">firmware update</span></div><div class="a">both orange at boot · LED 1 green = receiving · LED 2 = level, green or yellow is good · both orange = writing · alternating red = too quiet · <span class="b">[ frequency ]</span> = input gain</div></div>
 </section>
 </div>
 <div class="col" style="align-self: stretch">
@@ -178,12 +184,18 @@ html,body{margin:0;background:var(--cF6F8F1)}
 </section>
 <section class="sec">
 <div class="sh"><span class="sn" style="background: var(--c6C7566); color: var(--cF6F8F1)">06</span><h2 class="st">calibration · fixes</h2><span class="sc">rng_06</span></div>
-<div class="r"><div class="kc"><span class="v">prep</span></div><div class="a">unplug cv · keyboard cv into v/oct · a cable in the frequency cv jack, other end loose</div></div>
-<div class="r"><div class="kc"><span class="b h">[ poly ]</span><i class="p">+</i><span class="b h">[ model ]</span> <span class="v">2 s</span></div><div class="a">first LED blinks orange</div></div>
-<div class="r"><div class="kc"><span class="v">1 v</span><i class="p">›</i><span class="b">[ poly ]</span><i class="p">›</i><span class="v">3 v</span><i class="p">›</i><span class="b">[ poly ]</span></div><div class="a">done · both LEDs red = failed, try again</div></div>
-<div class="r"><div class="kc"><span class="v">fine tune dead</span></div><div class="a">the loose cable step was skipped: recalibrate</div></div>
-<div class="r"><div class="kc"><span class="v">constant noise</span></div><div class="a">nothing patched: hold both (orange) · hold both again (red) · <span class="b">[ poly ]</span> (green) · <span class="b">[ poly ]</span></div></div>
-<div class="r"><div class="kc"><span class="v">firmware</span></div><div class="a">power on holding <span class="b">[ poly ]</span> · play the file into in · frequency = gain</div></div>
+<div class="ch"><b>retune the v/oct</b><span>if notes drift out of tune</span></div>
+<div class="cs"><span class="cn">1</span><div>unplug all cv · keyboard or midi-cv into <span class="b">[ v/oct ]</span></div></div>
+<div class="cs"><span class="cn">2</span><div>a cable in the <span class="b">[ frequency ]</span> cv jack, other end loose</div></div>
+<div class="cs"><span class="cn">3</span><div>hold <span class="b h">[ poly ]</span> + <span class="b h">[ model ]</span> 2 s, release › LED 1 blinks orange</div></div>
+<div class="cs"><span class="cn">4</span><div>send 1 v (c2) · press <span class="b">[ poly ]</span> › LED 2 blinks orange</div></div>
+<div class="cs"><span class="cn">5</span><div>send 3 v (c4) · press <span class="b">[ poly ]</span> › done</div></div>
+<div class="cf">both LEDs blink red = it failed, start again · fine tune dead afterwards = step 2 was skipped</div>
+<div class="ch"><b>stop the hiss</b><span>if it makes noise with nothing patched</span></div>
+<div class="cs"><span class="cn">1</span><div>unplug every cable, ins and outs</div></div>
+<div class="cs"><span class="cn">2</span><div>hold <span class="b h">[ poly ]</span> + <span class="b h">[ model ]</span>, release › LED 1 blinks orange</div></div>
+<div class="cs"><span class="cn">3</span><div>hold <span class="b h">[ poly ]</span> + <span class="b h">[ model ]</span> again, release › both LEDs blink red</div></div>
+<div class="cs"><span class="cn">4</span><div>press <span class="b">[ poly ]</span> › both green · press <span class="b">[ poly ]</span> › back to normal</div></div>
 </section>
 <section class="sec">
 <div class="sh"><span class="sn" style="background: #5C6066; color: #FFFFFE">09</span><h2 class="st">rings vs elements</h2><span class="sc">rng_09 · same code</span></div>
